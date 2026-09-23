@@ -58,8 +58,8 @@ with col1:
     st.subheader("Predicted price")
     st.metric("Estimate", f"${predicted:,.0f}")
     st.write(
-        f"Typical error on unseen houses is about **${mae:,.0f}**, so treat this as a "
-        f"range of roughly **${max(predicted - mae, 0):,.0f} – ${predicted + mae:,.0f}**."
+        f"Typical error on unseen houses is about **\\${mae:,.0f}**, so treat this as a "
+        f"range of roughly **\\${max(predicted - mae, 0):,.0f} – \\${predicted + mae:,.0f}**."
     )
     if house["waterfront"]:
         st.info("Waterfront houses were all removed as outliers during training, "
@@ -82,7 +82,8 @@ with col2:
         st.metric(f"Median of {len(similar)} similar houses", f"${median:,.0f}",
                   delta=f"{(predicted - median) / median:+.1%} prediction vs. median",
                   delta_color="off")
-        st.write(f"Middle 50%: **${q1:,.0f} – ${q3:,.0f}**")
+        # "\\$" stops Markdown from treating text between dollar signs as LaTeX.
+        st.write(f"Middle 50%: **\\${q1:,.0f} – \\${q3:,.0f}**")
         if q1 <= predicted <= q3:
             st.success("The prediction falls within the typical range → looks reasonable.")
         else:
